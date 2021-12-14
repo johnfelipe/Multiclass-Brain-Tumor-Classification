@@ -9,56 +9,51 @@ class Model:
         callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)  # patience given in paper
 
         # Build a CNN model
-        model_1 = tf.keras.models.Sequential([
+        model_1 = tf.keras.Sequential()
+        model_1.add(tf.keras.layers.Conv2D(filters=64, kernel_size=7, padding='Same', activation='relu',
+                          input_shape=(256, 256, 1)))
+        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+        model_1.add(tf.keras.layers.BatchNormalization())
 
-            # 1.
-            tf.keras.layers.Conv2D(filters=16,
-                                   kernel_size=3,
-                                   activation="relu",
-                                   input_shape=(256, 256, 1)),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
+        model_1.add(tf.keras.layers.Conv2D(filters=128, kernel_size=7, padding='Same', activation='relu'))
+        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+        model_1.add(tf.keras.layers.BatchNormalization())
 
-            # 2.
-            tf.keras.layers.Conv2D(filters=32,
-                                   kernel_size=3,
-                                   activation="relu"),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
+        model_1.add(tf.keras.layers.Conv2D(filters=128, kernel_size=7, padding='Same', activation='relu'))
+        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+        model_1.add(tf.keras.layers.BatchNormalization())
 
-            # 3.
-            tf.keras.layers.Conv2D(filters=64,
-                                   kernel_size=3,
-                                   activation="relu"),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
+        model_1.add(tf.keras.layers.Conv2D(filters=256, kernel_size=7, padding='Same', activation='relu'))
+        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+        model_1.add(tf.keras.layers.BatchNormalization())
 
-            # 4.
-            tf.keras.layers.Conv2D(filters=128,
-                                   kernel_size=3,
-                                   activation="relu"),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
+        model_1.add(tf.keras.layers.Conv2D(filters=256, kernel_size=7, padding='Same', activation='relu'))
+        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+        model_1.add(tf.keras.layers.BatchNormalization())
 
-            tf.keras.layers.Flatten(),
-            tf.keras.layers.Dense(1028),
-            tf.keras.layers.Dense(4, activation="softmax")])
+        model_1.add(tf.keras.layers.Conv2D(filters=512, kernel_size=7, padding='Same', activation='relu'))
+        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+        model_1.add(tf.keras.layers.BatchNormalization())
+
+        model_1.add(tf.keras.layers.Flatten())
+        model_1.add(tf.keras.layers.Dense(1024, activation="relu"))
+        model_1.add(tf.keras.layers.Dropout(0.2))
+
+        model_1.add(tf.keras.layers.Dense(512, activation="relu"))
+        model_1.add(tf.keras.layers.Dropout(0.2))
+
+        model_1.add(tf.keras.layers.Dense(4, activation="softmax"))
 
         # Compile the model
-
         model_1.compile(loss="categorical_crossentropy",
-                        optimizer=tf.keras.optimizers.Adam(),
+                        optimizer=tf.keras.optimizers.SGD(lr = 0.01),
                         metrics=['accuracy'])
 
         model_1.summary()
 
         # Fit the model
 
-        history_1 = model_1.fit(self.train_data_augmented, epochs=15,
+        history_1 = model_1.fit(self.train_data_augmented, epochs=30,
                                 steps_per_epoch=len(self.train_data_augmented),
                                 validation_data=self.test_data,
                                 validation_steps=len(self.test_data),

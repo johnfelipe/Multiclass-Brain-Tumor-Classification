@@ -34,7 +34,7 @@ class ModifyBuild:
         train_data_augmented = train_datagen_augmented.flow_from_directory(train_dir,
                                                                            target_size=(256, 256),
                                                                            class_mode="categorical",
-                                                                           batch_size=16,
+                                                                           batch_size=32,
                                                                            shuffle=True,
                                                                            color_mode="grayscale",
                                                                            seed=44)
@@ -42,7 +42,7 @@ class ModifyBuild:
         test_data = test_datagen.flow_from_directory(test_dir,
                                                      target_size=(256,256),
                                                      class_mode="categorical",
-                                                     batch_size=16,
+                                                     batch_size=32,
                                                      color_mode="grayscale",
                                                      seed=44)
 
