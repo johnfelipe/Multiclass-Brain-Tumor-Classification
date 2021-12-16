@@ -1,5 +1,7 @@
 # Multiclass Brain Tumor Classification
 
+> Group A5
+
 ## Introduction
  A brain tumor is a mass or growth of abnormal cells in the brain. Many types of brain tumors exist, some being cancerous and others benign. Benign tumor cells rarely invade neighboring cells and have a slow progression rate. Malignant cells readily attack neighboring cells, have fuzzy borders, and rapid progression rates. The main tumor kinds are primary and metastatic. How quickly a brain tumor grows can vary, it depending on their location they are represented by different nomenclature. This project focuses on the development of a robust algorithm to distinguish between three tumors - Glioma, Meningioma, and Pituitary. We built an app in Python that can detect the brain tumor type. 
 
@@ -8,13 +10,17 @@
  https://www.kaggle.com/sartajbhuvaji/brain-tumor-classification-mri
 
 ## Motivations
-> “What all of us have to do is to make sure we are using AI in a way that is for the benefit of humanity, not to the detriment of humanity." - Tim Cook, CEO Apple \n
+> “What all of us have to do is to make sure we are using AI in a way that is for the benefit of humanity, not to the detriment of humanity." - Tim Cook, CEO Apple
 
 I believe in data science for good!
 
 ## Model
 
 ## Model Evaluation
+
+## Links 
+1. Presentation - https://docs.google.com/presentation/d/1Ly3UNyhePMgud5GrM81PgZWTFe0jJtfw/edit?usp=sharing&ouid=101144344517384173914&rtpof=true&sd=true
+2. Final Report - 
 
 ## Alternate Approaches
 1. Unsupervised learning - We may not be able to directly implement this method directly, because we have labeled data.
