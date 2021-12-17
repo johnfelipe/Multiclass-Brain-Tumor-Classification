@@ -20,7 +20,7 @@ class ModifyBuild:
 
         train_dir = os.path.join(data + "/Training")
         print('Training Dir:', train_dir)
-        test_dir = os.path.join(data + "/Testing")
+        test_dir = os.path.join(data + "/Training")
         print('Test Dir:', test_dir)
 
         # Create augmented train and test data generators and rescale the data
@@ -32,17 +32,17 @@ class ModifyBuild:
 
         # Load the image data
         train_data_augmented = train_datagen_augmented.flow_from_directory(train_dir,
-                                                                           target_size=(256, 256),
+                                                                           target_size=(224, 224),
                                                                            class_mode="categorical",
-                                                                           batch_size=32,
+                                                                           batch_size=128,
                                                                            shuffle=True,
                                                                            color_mode="grayscale",
                                                                            seed=44)
 
         test_data = test_datagen.flow_from_directory(test_dir,
-                                                     target_size=(256,256),
+                                                     target_size=(224,224),
                                                      class_mode="categorical",
-                                                     batch_size=32,
+                                                     batch_size = 128,
                                                      color_mode="grayscale",
                                                      seed=44)
 

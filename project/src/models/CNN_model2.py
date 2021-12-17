@@ -6,61 +6,76 @@ class Model:
 
     def model_1(self):
         # Early Stopping set to patience of 1
-        callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)  # patience given in paper
+        callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
 
         # Build a CNN model
-        model_1 = tf.keras.Sequential()
-        model_1.add(tf.keras.layers.Conv2D(filters=64, kernel_size=7, padding='Same', activation='relu',
-                          input_shape=(256, 256, 1)))
-        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
-        model_1.add(tf.keras.layers.BatchNormalization())
+        model_1 = tf.keras.models.Sequential([
 
-        model_1.add(tf.keras.layers.Conv2D(filters=128, kernel_size=7, padding='Same', activation='relu'))
-        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
-        model_1.add(tf.keras.layers.BatchNormalization())
+            # 1.
+            tf.keras.layers.Conv2D(filters=64,
+                                   kernel_size=7,
+                                   activation="relu",
+                                   input_shape=(224, 224, 1)),
+            tf.keras.layers.Dropout(0.25),
+            tf.keras.layers.MaxPool2D(pool_size=2,
+                                      padding="Same"),
 
-        model_1.add(tf.keras.layers.Conv2D(filters=128, kernel_size=7, padding='Same', activation='relu'))
-        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
-        model_1.add(tf.keras.layers.BatchNormalization())
+            # 2.
+            tf.keras.layers.Conv2D(filters=128,
+                                   kernel_size=7,
+                                   activation="relu"),
+            tf.keras.layers.Dropout(0.25),
+            tf.keras.layers.MaxPool2D(pool_size=2,
+                                      padding="Same"),
 
-        model_1.add(tf.keras.layers.Conv2D(filters=256, kernel_size=7, padding='Same', activation='relu'))
-        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
-        model_1.add(tf.keras.layers.BatchNormalization())
+            # 3.
+            tf.keras.layers.Conv2D(filters=128,
+                                   kernel_size=7,
+                                   activation="relu"),
+            tf.keras.layers.Dropout(0.30),
+            tf.keras.layers.MaxPool2D(pool_size=2,
+                                      padding="Same"),
 
-        model_1.add(tf.keras.layers.Conv2D(filters=256, kernel_size=7, padding='Same', activation='relu'))
-        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
-        model_1.add(tf.keras.layers.BatchNormalization())
+            # 4.
+            tf.keras.layers.Conv2D(filters=128,
+                                   kernel_size=7,
+                                   activation="relu"),
+            tf.keras.layers.Dropout(0.30),
+            tf.keras.layers.MaxPool2D(pool_size=2,
+                                      padding="Same"),
 
-        model_1.add(tf.keras.layers.Conv2D(filters=512, kernel_size=7, padding='Same', activation='relu'))
-        model_1.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
-        model_1.add(tf.keras.layers.BatchNormalization())
+            # 5.
+            tf.keras.layers.Conv2D(filters=256,
+                                   kernel_size=7,
+                                   activation="relu"),
+            tf.keras.layers.Dropout(0.30),
+            tf.keras.layers.MaxPool2D(pool_size=2,
+                                      padding="Same"),
 
-        model_1.add(tf.keras.layers.Flatten())
-        model_1.add(tf.keras.layers.Dense(1024, activation="relu"))
-        model_1.add(tf.keras.layers.Dropout(0.2))
-
-        model_1.add(tf.keras.layers.Dense(512, activation="relu"))
-        model_1.add(tf.keras.layers.Dropout(0.2))
-
-        model_1.add(tf.keras.layers.Dense(4, activation="softmax"))
+            tf.keras.layers.Flatten(),
+            tf.keras.layers.Dense(1024, activation="relu"),
+            tf.keras.layers.BatchNormalization(),
+            tf.keras.layers.Dropout(0.5),
+            tf.keras.layers.Dense(4, activation="softmax")])
 
         # Compile the model
+
         model_1.compile(loss="categorical_crossentropy",
-                        optimizer=tf.keras.optimizers.SGD(lr = 0.01),
+                        optimizer=tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9),
                         metrics=['accuracy'])
 
         model_1.summary()
 
         # Fit the model
 
-        history_1 = model_1.fit(self.train_data_augmented, epochs=30,
+        history_1 = model_1.fit(self.train_data_augmented, epochs=50,
                                 steps_per_epoch=len(self.train_data_augmented),
                                 validation_data=self.test_data,
                                 validation_steps=len(self.test_data),
                                 callbacks=[callback])
 
         # Save the model
-        model_1.save(os.path.join(d, 'project/volume/models') + "/CNN_V2.hdf5")
+        model_1.save(os.path.join(d, 'project/volume/models') + "/CNN_V1.hdf5")
         print('Model_1 Saved')
         return model_1, history_1
 
@@ -83,7 +98,7 @@ class Model:
         plt.title('Loss')
         plt.xlabel('epochs')
         plt.legend()
-        fig.savefig(os.path.join(d, 'project/volume/images') + "/CNN_V2_loss.png")
+        fig.savefig(os.path.join(d, 'project/volume/images') + "/CNN_V1_loss.png")
         print('loss saved')
 
         return fig
@@ -106,7 +121,7 @@ class Model:
         plt.title('Accuracy')
         plt.xlabel('epochs')
         plt.legend();
-        fig2.savefig(os.path.join(d, 'project/volume/images') + "/CNN_V2_accuracy.png")
+        fig2.savefig(os.path.join(d, 'project/volume/images') + "/CNN_V1_accuracy.png")
         print('accuracy saved')
 
         return fig2

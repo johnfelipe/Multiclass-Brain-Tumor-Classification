@@ -15,37 +15,14 @@ class Model:
             tf.keras.layers.Conv2D(filters=16,
                                    kernel_size=3,
                                    activation="relu",
-                                   input_shape=(256, 256, 1)),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
-
-            # 2.
-            tf.keras.layers.Conv2D(filters=32,
-                                   kernel_size=3,
-                                   activation="relu"),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
-
-            # 3.
-            tf.keras.layers.Conv2D(filters=64,
-                                   kernel_size=3,
-                                   activation="relu"),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
-
-            # 4.
-            tf.keras.layers.Conv2D(filters=128,
-                                   kernel_size=3,
-                                   activation="relu"),
-            tf.keras.layers.Dropout(0.50),
-            tf.keras.layers.MaxPool2D(pool_size=2,
-                                      padding="Same"),
-
-            tf.keras.layers.Flatten(),
+                                   input_shape=(224, 224, 1)),
             tf.keras.layers.Dense(1028),
+            tf.keras.layers.Dense(512),
+            tf.keras.layers.Dense(256),
+            tf.keras.layers.Dense(128),
+            tf.keras.layers.Dense(64),
+            tf.keras.layers.Dense(32),
+            tf.keras.layers.Dense(16),
             tf.keras.layers.Dense(4, activation="softmax")])
 
         # Compile the model
