@@ -15,7 +15,7 @@ class_names = np.array(sorted([item.name for item in data_dir.glob('*')]))
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model_1 = tf.keras.models.load_model(os.path.join(d, 'project/volume/models') + '/CNN_V2.hdf5')
+    model_1 = tf.keras.models.load_model(os.path.join(d, 'project/volume/models') + '/CNN_V1.hdf5')
     return model_1
 
 
