@@ -6,69 +6,72 @@ class Model:
 
     def model_1(self):
         # Early Stopping set to patience of 1
-        callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
+        callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=11)
 
         # Build a CNN model
         model_1 = tf.keras.models.Sequential([
 
             # 1.
             tf.keras.layers.Conv2D(filters=64,
-                                   kernel_size=7,
+                                   kernel_size=4,
                                    activation="relu",
-                                   input_shape=(224, 224, 1)),
-            tf.keras.layers.Dropout(0.25),
+                                   input_shape=(128, 128, 1)),
             tf.keras.layers.MaxPool2D(pool_size=2,
                                       padding="Same"),
+            tf.keras.layers.Dropout(0.20),
 
             # 2.
             tf.keras.layers.Conv2D(filters=128,
-                                   kernel_size=7,
+                                   kernel_size=4,
                                    activation="relu"),
-            tf.keras.layers.Dropout(0.25),
             tf.keras.layers.MaxPool2D(pool_size=2,
                                       padding="Same"),
 
             # 3.
-            tf.keras.layers.Conv2D(filters=128,
-                                   kernel_size=7,
+            tf.keras.layers.Conv2D(filters=256,
+                                   kernel_size=4,
                                    activation="relu"),
-            tf.keras.layers.Dropout(0.30),
             tf.keras.layers.MaxPool2D(pool_size=2,
                                       padding="Same"),
+            tf.keras.layers.Dropout(0.20),
 
             # 4.
-            tf.keras.layers.Conv2D(filters=128,
-                                   kernel_size=7,
+            tf.keras.layers.Conv2D(filters=512,
+                                   kernel_size=4,
                                    activation="relu"),
-            tf.keras.layers.Dropout(0.30),
             tf.keras.layers.MaxPool2D(pool_size=2,
                                       padding="Same"),
 
             # 5.
-            tf.keras.layers.Conv2D(filters=256,
-                                   kernel_size=7,
+            tf.keras.layers.Conv2D(filters=512,
+                                   kernel_size=4,
                                    activation="relu"),
-            tf.keras.layers.Dropout(0.30),
+
             tf.keras.layers.MaxPool2D(pool_size=2,
                                       padding="Same"),
+            tf.keras.layers.Dropout(0.20),
 
             tf.keras.layers.Flatten(),
             tf.keras.layers.Dense(1024, activation="relu"),
             tf.keras.layers.BatchNormalization(),
-            tf.keras.layers.Dropout(0.5),
+            tf.keras.layers.Dense(512, activation="relu"),
+            tf.keras.layers.BatchNormalization(),
+            tf.keras.layers.Dense(64, activation="relu"),
+            tf.keras.layers.BatchNormalization(),
+            tf.keras.layers.Dropout(0.3),
             tf.keras.layers.Dense(4, activation="softmax")])
 
         # Compile the model
 
         model_1.compile(loss="categorical_crossentropy",
-                        optimizer=tf.keras.optimizers.Adam(lr=0.001, beta_1=0.9),
+                        optimizer=tf.keras.optimizers.Adam(lr=0.1, beta_1=0.9),
                         metrics=['accuracy'])
 
         model_1.summary()
 
         # Fit the model
 
-        history_1 = model_1.fit(self.train_data_augmented, epochs=50,
+        history_1 = model_1.fit(self.train_data_augmented, epochs=80,
                                 steps_per_epoch=len(self.train_data_augmented),
                                 validation_data=self.test_data,
                                 validation_steps=len(self.test_data),

@@ -25,24 +25,29 @@ class ModifyBuild:
 
         # Create augmented train and test data generators and rescale the data
         train_datagen_augmented = ImageDataGenerator(rescale=1./255,
-                                                     rotation_range=90,
-                                                     horizontal_flip=True)
+                                                     rotation_range=45,
+                                                     width_shift_range=0.2,
+                                                     height_shift_range=0.2,
+                                                     shear_range=0.2,
+                                                     zoom_range=0.2,
+                                                     horizontal_flip=True,
+                                                     fill_mode='nearest')
 
         test_datagen = ImageDataGenerator(rescale=1./255)
 
         # Load the image data
         train_data_augmented = train_datagen_augmented.flow_from_directory(train_dir,
-                                                                           target_size=(224, 224),
+                                                                           target_size=(128, 128),
                                                                            class_mode="categorical",
-                                                                           batch_size=128,
+                                                                           batch_size=200,
                                                                            shuffle=True,
                                                                            color_mode="grayscale",
                                                                            seed=44)
 
         test_data = test_datagen.flow_from_directory(test_dir,
-                                                     target_size=(224,224),
+                                                     target_size=(128,128),
                                                      class_mode="categorical",
-                                                     batch_size = 128,
+                                                     batch_size = 200,
                                                      color_mode="grayscale",
                                                      seed=44)
 
