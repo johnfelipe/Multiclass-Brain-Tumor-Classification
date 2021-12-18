@@ -37,8 +37,9 @@ I believe in data science for good!
 
 1. [Website](https://vbgupta.github.io/Multiclass-Brain-Tumor-Classification/)
 2. [Code](https://github.com/vbgupta/Multiclass-Brain-Tumor-Classification)
-3. [Presentation](https://docs.google.com/presentation/d/1Ly3UNyhePMgud5GrM81PgZWTFe0jJtfw/edit?usp=sharing&ouid=101144344517384173914&rtpof=true&sd=true)
-4. [Final-Report](https://docs.google.com/document/d/1y7al_yqODdA9r9KnLRp56gqLGQRoemAoIWECeq7tBYE/edit?usp=sharing)
+3. [Download-the-model](https://drive.google.com/drive/folders/1BueaOb7fIAUmXjwzEp537cW-YRycSQvK?usp=sharing)
+4. [Presentation](https://docs.google.com/presentation/d/1Ly3UNyhePMgud5GrM81PgZWTFe0jJtfw/edit?usp=sharing&ouid=101144344517384173914&rtpof=true&sd=true)
+5. [Final-Report](https://docs.google.com/document/d/1y7al_yqODdA9r9KnLRp56gqLGQRoemAoIWECeq7tBYE/edit?usp=sharing)
 
 ## Alternate Approaches
 1. Unsupervised learning - We may not be able to directly implement this method , because we have labeled data.
@@ -50,7 +51,7 @@ I believe in data science for good!
 - Install the requiremnts to run this project using requirements.txt file under project/requirements/requirements.txt
 - The project folder contains all the code for preprocessing the data and creating the model. This is under project/src
 - The project folder contains the saved images in project/volume/images, and the data/raw folder is where the data should go from kaggle. 
-- The project folder contains a models folder under project/volume/models where the model is present.
+- Download the model using the point3 under `Links` and put it in the folder - project/volume/models/
 - To test this model out, run the app.py file contained at the root of the repository.
 > To run the app -> open the terminal/command prompt in the repository director and type yourcomputer$ streamlit run app.py
 
